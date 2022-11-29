@@ -8,6 +8,15 @@
 			background: black;
 		}
 	</style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-33607448-26"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-33607448-26');
+  </script>
 </head>
 <div>
   <img src="images/appsflyerlogo.png" alt="AppsFlyer logo" width="30%">
@@ -54,6 +63,11 @@
     const af_sig = CryptoJS.HmacSHA256(sig_source_str, dev_key).toString(); 
     console.log(af_sig);
     document.getElementById("output_url").innerText = af_sig;
+
+    gtag('event', 'RunScript', {
+              'event_category' : 'Calculate_HMAC',
+              'event_label' : 'Success'
+            });
   };
 </script>
 </body>
