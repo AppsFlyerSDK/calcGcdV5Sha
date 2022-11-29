@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base herf="/">
+  <link rel="stylesheet" href="style.css">
+  <style>
+		foo {
+			background: black;
+		}
+	</style>
+</head>
+<div>
+  <img src="images/appsflyerlogo.png" alt="AppsFlyer logo" width="30%">
+</div>
+<h1 class="primary-heading">
+  Calculate HMAC SHA-256 for GCD v5
+</h1>
+<div>
+  <h3>Dev Key</h3>
+  <input id="dev_key" placeholder="abc_MY_DEV_KEY" class="input_value"/>
+</div>
+<div>
+  <h3>Timestamp</h3>
+  <input id="timestamp" placeholder="1661969112345" class="input_value"/>
+</div>
+<div>
+  <h3>Device ID</h3>
+  <input id="device_id" placeholder="1591184059153-1591377216180180185" class="input_value"/>
+</div>
+<div>
+  <h3>App ID</h3>
+  <input id="app_id" placeholder="com.myapp.example or id123345456" class="input_value"/>
+</div>
+
+<div>
+  <input type="button" value="Calculate HMAC" class="code_button" onclick="runCalcHmacCode()" />
+</div>
+<div class="output_url-container">
+  <h3>Output HMAC</h3>
+  <textarea id="output_url">
+  </textarea>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script>
+  // set the onClick to run the code in the code editor
+  function runCalcHmacCode() {
+    const dev_key = document.getElementById("dev_key").value;
+    const af_request_epoch_ms = document.getElementById("timestamp").value;
+    const device_id = document.getElementById("device_id").value;
+    const app_id = document.getElementById("app_id").value;
+
+    const sig_source_str = af_request_epoch_ms + '\u2063' + device_id + '\u2063' + app_id;
+    console.log(sig_source_str);
+    const af_sig = CryptoJS.HmacSHA256(sig_source_str, dev_key).toString(); 
+    console.log(af_sig);
+    document.getElementById("output_url").innerText = af_sig;
+  };
+</script>
+</body>
+
+</body>
+</html>
